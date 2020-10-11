@@ -27,7 +27,15 @@ class CybosAgent(CybosAgentWrapper, metaclass=Singleton):
             class_obj = self.get_cybos_obj(class_name)
 
             self._update_update_db_info(class_obj, db_name, update_info)
-            class_obj.update_db(db_name, target_ids)
+            if class_name == 'CpSvr7254':
+                sub_target_ids = target_ids.copy()
+                if 'U001' in sub_target_ids:
+                    sub_target_ids.remove('U001')
+                if 'U201' in sub_target_ids:
+                    sub_target_ids.remove('U201')
+                class_obj.update_db(db_name, sub_target_ids)
+            else:
+                class_obj.update_db(db_name, target_ids)
 
     def update_db_w_all_id_wo_date(self, update_info, update_db_names=Cac.UpdateDbWoIdName):
         """

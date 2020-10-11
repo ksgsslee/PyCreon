@@ -24,7 +24,6 @@ class DbAgent(metaclass=Singleton):
 
         target_ids = Dac.UpdateDbTargetId
         if target_ids is None:
-            # ['U001', 'U201'] = [kospi, kosdag]
             target_ids = ['U001', 'U201'] + self.get_ids_with_condition(Dac.UpdateDbTargetIdCond)
 
         self.log.warning("{} Nummber of Stock wiil be Updated".format(len(target_ids)))
