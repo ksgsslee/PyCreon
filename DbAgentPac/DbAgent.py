@@ -13,6 +13,7 @@ class DbAgent(metaclass=Singleton):
         self.log.info('DbAgent Ready')
 
         self.cybos_agent = CybosAgent()
+        self.ids_max_num = 300
 
     # # public function
     def update_db(self):
@@ -67,7 +68,7 @@ class DbAgent(metaclass=Singleton):
 
         target_stock_info = stock_info.loc[target_all, :]
 
-        return list(target_stock_info['Id'])
+        return list(target_stock_info['Id'])[:self.ids_max_num]
 
     # # protected function
     def _dump_update_db_info(self, update_info):
