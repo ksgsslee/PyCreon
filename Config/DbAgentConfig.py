@@ -6,7 +6,7 @@ class DbAgentConfigOri:
     UpdateDbTargetId = None
     UpdateDbTargetIdCond = [
         ["MarketKind == 'Kosdaq'", "SectionKind == 'ST'", "ListedDate <= 20090101"],
-        ["Kospi200Kind != 'None'", "ListedDate <= 20090101"],
+        ["MarketKind == 'Kospi'", "SectionKind == 'ST'", "ListedDate <= 20090101"],
         ["SectionKind == 'ETF'", "ListedDate <= 20090101"]
     ]
 
