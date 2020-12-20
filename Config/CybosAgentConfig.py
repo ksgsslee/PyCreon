@@ -5,9 +5,8 @@ from Config.DbAgentConfig import DbAgentConfigOri as Daco
 class CybosAgentConfigOri:
     # # frequent changed config
     # update df name
-    UpdateDbName = ['StockInfo', 'StockChart1', 'StockChart2', 'GeoLaeType']
     # UpdateDbName = ['GeoLaeType']
-    # UpdateDbName = ['StockInfo', 'StockChart1', 'StockChart2']
+    UpdateDbName = ['StockInfo', 'StockChart1', 'StockChart2', 'GeoLaeType']
     UpdateDbWoIdName = ['StockInfoKospiKosdaq']
     SupportCybosClassForDb = ['CpCodeMgr', 'StockChart', 'CpSvr7254']
     SupportCybosClassForDbWoId = ['CpCodeMgr']

@@ -13,7 +13,7 @@ class DbAgent(metaclass=Singleton):
         self.log.info('DbAgent Ready')
 
         self.cybos_agent = CybosAgent()
-        self.ids_max_num = 300
+        self.ids_max_num = 1000
 
     # # public function
     def update_db(self):
