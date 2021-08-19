@@ -6,6 +6,9 @@ from UtilAgentPac.UtilPac import EtcUtil as Eu
 import numpy as np
 import pandas as pd
 import sys
+import yfinance as yf
+import datetime
+from time import sleep
 
 
 class StockChart(CpSysDibWrapper, metaclass=Singleton):
@@ -136,3 +139,57 @@ class StockChart(CpSysDibWrapper, metaclass=Singleton):
         cybos_db = cybos_db.astype(d_type)
 
         return cybos_db.drop_duplicates(['Date']).sort_values(['Date']).reset_index(drop=True)
+
+    def get_en_db(self, target_id, db_name, start_date=Cac.DbStartDate):
+        db_info = self.support_db_info[db_name]
+
+        en_db_ori = yf.download(target_id, start=Eu.get_en_time(start_date), end=Dc.ExecuteNearestDealingDate)
+        if len(en_db_ori) == 0:
+            return None
+
+        en_db_ori.index += datetime.timedelta(days=1)
+
+        en_db_ori['Date'] = en_db_ori.index.year * 10000 + en_db_ori.index.month * 100 + en_db_ori.index.day
+        en_db_ori['SiGa'] = (en_db_ori['Open'] * 100).astype(int)
+        en_db_ori['GoGa'] = (en_db_ori['High'] * 100).astype(int)
+        en_db_ori['JeoGa'] = (en_db_ori['Low'] * 100).astype(int)
+        en_db_ori['JongGa'] = (en_db_ori['Close'] * 100).astype(int)
+        en_db_ori['GeoLaeLyang'] = en_db_ori['Volume'].astype(int)
+
+        en_db = en_db_ori.loc[:, ['Date', 'SiGa', 'GoGa', 'JeoGa', 'JongGa', 'GeoLaeLyang']].reset_index(drop=True)
+
+        d_type = {}
+        for column in en_db.columns:
+            d_type[column] = self.support_data_info[column][2]
+        en_db = en_db.astype(d_type)
+
+        return en_db.drop_duplicates(['Date']).sort_values(['Date']).reset_index(drop=True)
+
+
+if __name__ == '__main__':
+    okay, ss = Eu.read_df(Dc.StoragePath, "US", "csv")
+
+    # ss = ss.iloc[:20, :]
+    leave_index = []
+    for index in ss.index:
+        print(index)
+        target_id = ss.loc[index, 'Id'][1:]
+        en_db_ori = yf.download(target_id, start=Eu.get_en_time(Cac.DbStartDate))
+        sleep(1 / 10)
+
+        if len(en_db_ori) == 0:
+            leave_index.append(False)
+            continue
+
+        date = en_db_ori.index[0]
+        ss.loc[index, 'ListedDate'] = date.year * 10000 + date.month * 100 + date.day
+        ss.loc[index, 'StockName'] = ss.loc[index, 'StockName'].replace(" ", "")[:15]
+
+        leave_index.append(True)
+
+    ss = ss.loc[leave_index, :].reset_index(drop=True)
+
+    Eu.write_df(ss, Dc.StoragePath, "USafter", "csv")
+
+    # sc = StockChart()
+    # test = sc.get_en_db('MMM', 'StockChart1')

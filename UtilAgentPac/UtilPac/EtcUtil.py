@@ -153,3 +153,8 @@ def load_json(save_path_left, save_name):
         target = json.load(path)
 
     return True, target
+
+
+def get_en_time(date):
+    str_date = str(date)
+    return str_date[:4] + '-' + str_date[4:6] + '-' + str_date[6:8]

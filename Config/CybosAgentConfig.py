@@ -6,7 +6,7 @@ class CybosAgentConfigOri:
     # # frequent changed config
     # update df name
     # UpdateDbName = ['GeoLaeType']
-    UpdateDbName = ['StockInfo', 'StockChart1', 'StockChart2', 'GeoLaeType']
+    UpdateDbName = ['StockInfo', 'StockChart1', 'StockChart2']
     UpdateDbWoIdName = ['StockInfoKospiKosdaq']
     SupportCybosClassForDb = ['CpCodeMgr', 'StockChart', 'CpSvr7254']
     SupportCybosClassForDbWoId = ['CpCodeMgr']

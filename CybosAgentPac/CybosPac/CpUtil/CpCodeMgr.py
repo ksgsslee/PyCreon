@@ -26,6 +26,13 @@ class CpCodeMgr(metaclass=Singleton):
                          'MemeMin'],
             'KeyName': 'Id',
             'Type': 'csv'
+        },
+        'StockInfoUs': {
+            'DataName': ['Id', 'StockName', 'MarketKind', 'SectionKind', 'Kospi200Kind', 'ControlKind',
+                         'SupervisionKind', 'StatusKind', 'CapitalSize', 'LacKind', 'ListedDate', 'ParPrice',
+                         'MemeMin'],
+            'KeyName': 'Id',
+            'Type': 'csv'
         }
     }
     support_data_info = {

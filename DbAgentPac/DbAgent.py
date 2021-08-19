@@ -52,7 +52,7 @@ class DbAgent(metaclass=Singleton):
         """
         class_obj = self.cybos_agent.get_cybos_obj('CpCodeMgr')
         stock_info = class_obj.get_stock_info_kospi_kosdaq()
-        stock_info = stock_info.loc[stock_info['StatusKind'] != 'Stop', :].reset_index(drop=True)
+        # stock_info = stock_info.loc[stock_info['StatusKind'] != 'Stop', :].reset_index(drop=True)
 
         target_all = None
         for condition_ands in conditions:
